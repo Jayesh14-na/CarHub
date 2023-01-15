@@ -1,0 +1,54 @@
+Create the car object and some fields to store the information
+Allign the fields in page layouts for proper looks
+Upload the carhub_images.zip in the static resources in org and make it public and save
+for viewing the image right click in static resources and inspect, go to console and type $0.href
+then it will give some resource number so copy that
+in the Car_data.csv replace all the resource number with the copied numer
+now import the records so select car object then add new records and upload the Car_data.csv file
+if the mapping is correct then start import and now all the records are there in the car object
+
+Now we need a custom page template design of 3 sections(2_7_3) i.e. of different length
+but in the org the default templates are not fulfilling the requirements as they have of equal lengths
+so decided to make new template. 
+This template will be created using aura components named pageTemplate_2_7_3 and deploy it
+and you will see this template in the custom section when we create new lightning app page
+
+now create the components carCard, carFilter, carTileList
+
+in the carFilter component, create search element, sliderbar and 2 checkboxes section for
+categories and makeType
+in the search and sliderbar get the values from the filter object made in js and also written a 
+method if the values get updated using onchange
+first check for the data is available or not from the wire adapters, if available display the data
+using for loop and also create checkbox(lightning-input) with the same
+if the values are not there(true:error), created one const property that will display error msg
+
+create the apex class 'CarController' to get the data of the cars and import it in the
+carTileList.js 
+Make use of the wire adapter with apex in carTileList.js for displaying the car details
+If you are working on bigger projects then its good to divide them into smaller components
+so that we can easily test it or handle the complexity, thats why we have created 1 child component,
+carTile and in that we are displaying the details along with some css.
+
+in the apex class CarController, add the logic for filter. Use wrapper class as we need to combine 
+different data types values and store it in a single method. After this LMS comes into picture for 
+data transfer.
+
+create a new folder messageChannels and create 1 file in it.
+Import the lms in carFilter.js to send the message and also in carTileList to get the message.
+
+Now working on carCard component, imported some fields from car objects and displayed them using
+lightning record view form. We are not displaying car name and picture using lightning record
+view form. We are displaying them using the getFieldValue(import)
+
+In the carTile.html we have created an onclick event handleClick which will allow us to create
+new custom event 'selected' and from that we'll be getting the carId.
+Now create another messageChannels named 'CarSelected'. This messageChannels, we'll be using to
+pass the recordId which we are getting from the cardTile and pass it to carCard to display the 
+selected cars
+
+Create a new component placeholder for displaying the image and message from the parent carCard.
+It is also used in carTileList as if the user enters invalid search so it display the message with picture
+
+Add a navigation button in carCard component like when user selects car from tile it will appear in the
+carCard and from there user can navigate to the recordPage of that car.

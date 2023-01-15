@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Cars Available" icon-name="custom:custom31">
+        <div class="slds-p-around_medium wrapper">
+            <template if:true={cars.length}>
+                <div class="content">
+                    <template for:each={cars} for:item="car">
+                    <!-- if you are working on bigger projects then its good to divide them into -->
+                    <!-- smaller components so that we can easily test it or handle the complexity -->
+                        <c-car-tile key={car.Id} car={car} onselected={handleCarSelected}></c-car-tile>
+                        <!-- handleCarSelected = custom evetn created -->
+                    </template>
+                </div>
+            </template>
+            <template if:false={cars.length}>
+                <c-placeholder message="There are no car matching to your selection"></c-placeholder>
+            </template>
+        </div>
+    </lightning-card>
+</template>
